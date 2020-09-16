@@ -1,6 +1,8 @@
 /**
  * Example store structure
  */
+'use strict';
+
 const store = {
   // 5 or more questions are required
   questions: [
