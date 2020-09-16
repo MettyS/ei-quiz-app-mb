@@ -7,6 +7,54 @@
   *
 */
 
+* {
+	margin: 0;
+	padding: 0;
+	/*list-style-type: none;*/
+	line-height: 1.5;
+	
+	/*font-family: 'Source Sans Pro', sans-serif;*/
+	font-weight: normal;
+	color: black;
+
+	box-sizing: border-box;
+
+	/*text-align : center;*/
+}
+
+.wireframe-outline {
+  margin: 5px;
+  border-color: red;
+  border-width: 2px;
+  border-style: solid;
+}
+
+body {
+  margin: 20px;
+  padding: 20px 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+li {
+  text-align: left;
+}
+
+.submit-button {
+  text-align: center; 
+}
+
+header {
+  margin: 50%;
+  flex: 1;
+}
+
+main {
+  flex: 1;
+}
+
+
+
 h1{
 
   text-align: center;
@@ -32,9 +80,12 @@ ul li{
 {
   text-align: center;
 }
+<<<<<<< HEAD
 
 
 @media only screen and (max-width: 600px) 
 {
 
 }
+=======
+>>>>>>> 4955efb4dfca8b923b838a0b6792d23adbcc5659
