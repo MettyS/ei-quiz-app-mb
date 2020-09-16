@@ -1,6 +1,5 @@
 ### Boilerplate app structure for Quiz App project
 
-<<<<<<< HEAD
 Who 'invented' the internet - Tim Berners-lee
 When was the first personal computer invented - 1974
 What state was microsoft founded in - New Mexico
@@ -11,6 +10,4 @@ What are the four most common CHERRY MX key switch colors - Red, Brown, Blue, an
 What company just announced the 3060 ti gpu - Nvidia
 What pc component protects your computer from power surges - PSU
 
-=======
 I can see the code.
->>>>>>> 9bb17b17cc85f5d0484656e13a74b91a86fc6959
