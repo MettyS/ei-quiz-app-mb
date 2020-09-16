@@ -6,3 +6,26 @@
   * https://github.com/andreacardybailey/responsive_example/blob/master/styles/responsive-base.css 
   *
 */
+
+h1{
+
+  text-align: center;
+}
+
+ul{
+
+  text-align: center;
+  list-style: inside;
+
+  list-style: none;
+}
+
+ul li{
+
+  margin: 0px 0px 10px 0px;
+}
+
+#question-prompt
+{
+  text-align: center;
+}
