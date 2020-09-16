@@ -7,9 +7,34 @@
   *
 */
 
+<<<<<<< HEAD
 .wireframe-outline {
   padding: 5px;
   border-color: red;
   border-width: 2px;
 }
 
+=======
+h1{
+
+  text-align: center;
+}
+
+ul{
+
+  text-align: center;
+  list-style: inside;
+
+  list-style: none;
+}
+
+ul li{
+
+  margin: 0px 0px 10px 0px;
+}
+
+#question-prompt
+{
+  text-align: center;
+}
+>>>>>>> 601ad9dce5045742dbf8049a9e8c02e7e209af5c
