@@ -18,6 +18,9 @@ ul{
   list-style: inside;
 
   list-style: none;
+
+  /* top right bottom left*/
+  margin: 100px 50px 10px 0px;
 }
 
 ul li{
@@ -28,4 +31,10 @@ ul li{
 #question-prompt
 {
   text-align: center;
+}
+
+
+@media only screen and (max-width: 600px) 
+{
+
 }
