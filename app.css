@@ -15,70 +15,74 @@
 	
 	/*font-family: 'Source Sans Pro', sans-serif;*/
 	font-weight: normal;
-	color: black;
-
+  color: black;
+  background-color: #d9caa9;
+  font-family: 'Poppins', sans-serif;
 	box-sizing: border-box;
 
 	/*text-align : center;*/
 }
 
 .wireframe-outline {
-  margin: 5px;
   border-color: red;
   border-width: 2px;
   border-style: solid;
 }
 
 body {
-  margin: 20px;
-  padding: 20px 10px;
+  margin: 20px 25px;
+  padding: 20px 25px;
+  height: 600px;
   display: flex;
   flex-direction: column;
 }
 
-li {
-  text-align: left;
-}
-
-.submit-button {
-  text-align: center; 
-}
-
 header {
-  margin: 50%;
-  flex: 1;
+  text-align: center;
 }
 
 main {
   flex: 1;
 }
 
-
-
-h1{
-
-  text-align: center;
-}
-
-ul{
-
-  text-align: center;
-  list-style: inside;
-
-  list-style: none;
-
-  /* top right bottom left*/
-  margin: 100px 50px 10px 0px;
-}
-
-ul li{
-
-  margin: 0px 0px 10px 0px;
+main div {
+  margin-bottom: 30px;
+  margin-top: 20px;
 }
 
 #question-prompt
 {
   text-align: center;
+}
+
+#answer-section form {
+  display: flex;
+  flex-direction: column;
+}
+
+#answer-section div {
+  margin-top: 20px;
+}
+
+.submit-button {
+  width: 70px;
+  margin: auto;
+  margin-top: 20px;
+}
+
+ul{
+  list-style: inside;
+  list-style: none;
+  width: 200px;
+  margin: auto;
+}
+
+li {
+  text-align: left;
+}
+
+li input {
+  margin: 5px;
 }
 
 

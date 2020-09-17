@@ -106,7 +106,7 @@ function generateAnswers(qArray) {
                             <ul class='wireframe-outline'>
                               ${answersString}
                             </ul>
-                            <input type="submit" value="SUBMIT" />
+                            <input class='submit-button' type="submit" value="SUBMIT" />
                           </form>
                         </div>`;
 
@@ -126,7 +126,7 @@ function generateSplashMain(){
   let questionPrompt = generateQuestion('welcome to the quiz, please press START to begin.'); //this is giving a string
   let answerSection = `<div id='answer-section' class='wireframe-outline'>
                         <form action="">
-                          <input type="submit" value="START" />
+                          <input class='submit-button' type="submit" value="START" />
                         </form>
                       </div>`
 
@@ -139,7 +139,7 @@ function generateFinalScreen(){
   let answerSection = `<div id='answer-section' class='wireframe-outline'>
                         <form action="">
                           <p>You scored ${store.score} out of ${store.questions.length}</p>
-                          <input type="submit" value="NEXT" />
+                          <input class='submit-button' type="submit" value="NEXT" />
                         </form>
                       </div>`;
   return questionPrompt+answerSection;
