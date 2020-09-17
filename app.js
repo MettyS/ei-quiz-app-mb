@@ -41,7 +41,7 @@ const store = {
       answers: [
         'CMYK',
         'RGB',
-        'Pal',
+        'PAL',
         'NTSC'
       ],
       correctAnswer: 'RGB'
