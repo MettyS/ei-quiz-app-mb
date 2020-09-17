@@ -34,7 +34,7 @@ const store = {
 
 
 function handleSubmit(){
-  console.log("submitButton pressed!")
+  console.log("submitButton pressed!");
 }
 
 
