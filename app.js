@@ -32,8 +32,24 @@ const store = {
   score: 0
 };
 
+//inside splash screen
+//display info " this is a quiz about ...etc etc"
+//press submit  button to begin quiz
+//if submit is pressed 
+//quize started equal true
 
 function handleSubmit(){
+
+//if submit is pressed 
+//quize started equal true  
+
+// when submit is pressed 
+//increment question number
+//check right answer
+//if right answer checked 
+//then increment score
+//if its not correct answer
+//score stays the same
   console.log("submitButton pressed!")
 }
 
@@ -76,9 +92,53 @@ function generateMain(qObject) {
   return mainHtml;
 }
 
+
+function generateSplashMain(){
+
+  let questionPrompt = generateQuestion("welcome to the quiz, please press the submit button to  begin."); //this is giving a string
+
+  let answerSection = generateAnswers([]); //this is giving an array
+
+  let splashScreen = questionPrompt + answerSection;
+
+  return (splashScreen);
+  
+//   `<div id='answer-section' class='wireframe-outline'>
+//   <form action="">
+//     <ul class='wireframe-outline'>
+//     "welcome to the quiz, please press the submit button to  begin."
+//     </ul>
+//     <input type="submit" value="submit" />
+//   </form>
+// </div>`;
+
+}
 function render() {
-  let index = store['questionNumber'];
-  let htmlString = generateMain((store['questions'])[index]);
+
+//   //check if quiz started is true
+//   //if not render a splash
+//   let splashscreen = `<div id='answer-section' class='wireframe-outline'>
+//   <form action="">
+//     <ul class='wireframe-outline'>
+//     "welcome to the quiz, please press the submit button to  begin."
+//     </ul>
+//     <input type="submit" value="submit" />
+//   </form>
+// </div>`;
+
+// $('main').html(htmlString);
+
+let index = store['questionNumber'];
+let htmlString = " ";
+
+if(store.quizStarted === true )
+{
+  htmlString = generateMain((store['questions'])[index]);
+}
+else
+{
+  htmlString = generateSplashMain();
+}
 
   $('main').html(htmlString);
 }
