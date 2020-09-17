@@ -8,22 +8,7 @@
 */
 
 * {
-	
-	
-	
-	/*font-family: 'Source Sans Pro', sans-serif;*/
-	
-  
-  
 	box-sizing: border-box;
-
-	/*text-align : center;*/
-}
-
-.wireframe-outline {
-  /*border-color: red;
-  border-width: 2px;
-  border-style: solid;*/
 }
 
 .wrapper {
@@ -66,7 +51,6 @@ main {
 main div {
   margin-bottom: 20px;
   margin-top: 20px;
-  
 }
 
 #question-prompt
@@ -102,7 +86,6 @@ main div {
 #score-section div {
   text-align: center;
   flex: 1;
-
 }
 
 .submit-button {
