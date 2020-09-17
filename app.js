@@ -7,24 +7,84 @@ const store = {
   // 5 or more questions are required
   questions: [
     {
-      question: 'What color is broccoli?',
+      question: 'What pc component protects your computer from power surges ? ',
       answers: [
-        'red',
-        'orange',
-        'pink',
-        'green'
+        'CRT',
+        'USB',
+        'QWERTY',
+        'PSU'
       ],
-      correctAnswer: 'green'
+      correctAnswer: 'PSU'
     },
     {
-      question: 'What is the current year?',
+      question: 'What company just announced the 3060 ti gpu ? ',
+      answers: [
+        'Intel',
+        'Apple',
+        'Nvidia',
+        'AMD'
+      ],
+      correctAnswer: 'Nvidia'
+    },
+    {
+      question: 'What are the four most common CHERRY MX key switch colors ? ',
+      answers: [
+        'Red, Brown, Blue and Black',
+        'Red, Green, Blue, and Yellow',
+        'Pink, Orange, Yellow, and Purple',
+        'Blue, Green, Orange, and Black'
+      ],
+      correctAnswer: 'Red, Brown, Blue and Black'
+    },
+    {
+      question: 'What visual element makes a PC run faster ? ',
+      answers: [
+        'CMYK',
+        'RGB',
+        'Pal',
+        'NTSC'
+      ],
+      correctAnswer: 'RGB'
+    },
+    {
+      question: 'Who was the first published programmer ? ',
+      answers: [
+        'Ada Lovelace',
+        'Steve Wozniak',
+        'John Carmack',
+        'Daniell Bunten Berry'
+      ],
+      correctAnswer: 'Ada Lovelace'
+    },
+    {
+      question: 'What state was Microsoft founded in ? ',
+      answers: [
+        'Washington',
+        'New York',
+        'New Mexico',
+        'California'
+      ],
+      correctAnswer: 'New Mexico'
+    },
+    {
+      question: 'Who invented the internet ? ',
+      answers: [
+        'Tim Berners-Lee',
+        'Al Gore',
+        'Bill Gates',
+        'Alan Kay'
+      ],
+      correctAnswer: 'Tim Berners-Lee'
+    },
+    {
+      question: 'When was the first personal computer invented ?',
       answers: [
         '1970',
-        '2015',
-        '2020',
-        '2005'
+        '1974',
+        '2000',
+        '1984'
       ],
-      correctAnswer: '2020'
+      correctAnswer: '1974'
     }
   ],
   quizStarted: false,
