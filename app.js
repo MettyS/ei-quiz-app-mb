@@ -83,10 +83,16 @@ function render() {
   $('main').html(htmlString);
 }
 
+
+
+
 function main() {
   handleSubmit();
   render();
 }
+
+
+
 $(main);
 
 /*
