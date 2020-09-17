@@ -21,10 +21,10 @@ const store = {
       answers: [
         '1970',
         '2015',
-        '2019',
+        '2020',
         '2005'
       ],
-      correctAnswer: '2019'
+      correctAnswer: '2020'
     }
   ],
   quizStarted: false,
@@ -39,22 +39,51 @@ const store = {
 //quize started equal true
 
 function handleSubmit(){
-<<<<<<< HEAD
-  console.log("submitButton pressed!");
-=======
+  
+  $('main').on('submit', 'form', function (e) {
+    e.preventDefault();
+    console.log("submitButton pressed!");
+    if(!store.quizStarted){
+      store.quizStarted = true;
+      console.log('quiz should now be started!');
+    }
+    else if(store.questionNumber >= store.questions.length){
+      store.quizStarted = false;
+      store.questionNumber = 0;
+    }
+    else {
+      console.log($('input[name=answer]:checked'));
+      let a = $('input[name=answer]:checked').val();
+      console.log("user's answer is");
+      console.log(a);
+      let currentQ = store.questions[store.questionNumber];
+      store.score += (currentQ.correctAnswer === a) ? 1 : 0;
+      store.questionNumber++;
+    } 
 
-//if submit is pressed 
-//quize started equal true  
+    render();
+  });
 
-// when submit is pressed 
-//increment question number
-//check right answer
-//if right answer checked 
-//then increment score
-//if its not correct answer
-//score stays the same
-  console.log("submitButton pressed!")
->>>>>>> 1f0599508dba42299430d58f4be9729c5401cc81
+  /*
+  <title>jQuery Get Selected Radio Button Value</title>
+<script>
+$("input[type='button']"). click(function(){
+var radioValue = $("input[name='gender']:checked"). val();
+if(radioValue){
+alert("Your are a - " + radioValue);
+}
+});
+  */
+  //if submit is pressed 
+  //quize started equal true  
+
+  // when submit is pressed 
+  //increment question number
+  //check right answer
+  //if right answer checked 
+  //then increment score 
+  //if its not correct answer
+  //score stays the same
 }
 
 
@@ -63,25 +92,21 @@ function generateQuestion(qString) {
 }
 
 function  generateAnswerItem(qString) {
-  return `<li class='wireframe-outline'><input type="radio"  id="" name="" value=""><label for="">${qString}</label></li>`;
+  return `<li class='wireframe-outline'><input type="radio" id="" name="answer" value="${qString}"><label for="">${qString}</label></li>`;
 }
 
 function generateAnswers(qArray) {
-  console.log('question array is: ');
-  console.log(qArray);
   let answers = qArray.map(function (question) {
     return generateAnswerItem(question); //returns the generated html for the current question in array
   });
-  let answersString = answers.join(' ');    // SHOULD THIS JOIN????
-  console.log(answers);
-  console.log(answersString);
+  let answersString = answers.join(' ');
 
   let answersSection = `<div id='answer-section' class='wireframe-outline'>
                           <form action="">
                             <ul class='wireframe-outline'>
                               ${answersString}
                             </ul>
-                            <input type="submit" value="submit" />
+                            <input type="submit" value="SUBMIT" />
                           </form>
                         </div>`;
 
@@ -98,51 +123,57 @@ function generateMain(qObject) {
 
 
 function generateSplashMain(){
-
-  let questionPrompt = generateQuestion("welcome to the quiz, please press the submit button to  begin."); //this is giving a string
-
-  let answerSection = generateAnswers([]); //this is giving an array
+  let questionPrompt = generateQuestion('welcome to the quiz, please press START to begin.'); //this is giving a string
+  let answerSection = `<div id='answer-section' class='wireframe-outline'>
+                        <form action="">
+                          <input type="submit" value="START" />
+                        </form>
+                      </div>`
 
   let splashScreen = questionPrompt + answerSection;
-
   return (splashScreen);
-  
-//   `<div id='answer-section' class='wireframe-outline'>
-//   <form action="">
-//     <ul class='wireframe-outline'>
-//     "welcome to the quiz, please press the submit button to  begin."
-//     </ul>
-//     <input type="submit" value="submit" />
-//   </form>
-// </div>`;
-
 }
+
+function generateFinalScreen(){
+  let questionPrompt = generateQuestion('Thanks for taking the quiz! Your results are below, press "NEXT" to start over!');
+  let answerSection = `<div id='answer-section' class='wireframe-outline'>
+                        <form action="">
+                          <p>You scored ${store.score} out of ${store.questions.length}</p>
+                          <input type="submit" value="NEXT" />
+                        </form>
+                      </div>`;
+  return questionPrompt+answerSection;
+}
+
+
 function render() {
 
-//   //check if quiz started is true
-//   //if not render a splash
-//   let splashscreen = `<div id='answer-section' class='wireframe-outline'>
-//   <form action="">
-//     <ul class='wireframe-outline'>
-//     "welcome to the quiz, please press the submit button to  begin."
-//     </ul>
-//     <input type="submit" value="submit" />
-//   </form>
-// </div>`;
+  //   //check if quiz started is true
+  //   //if not render a splash
+  //   let splashscreen = `<div id='answer-section' class='wireframe-outline'>
+  //   <form action="">
+  //     <ul class='wireframe-outline'>
+  //     "welcome to the quiz, please press the submit button to  begin."
+  //     </ul>
+  //     <input type="submit" value="submit" />
+  //   </form>
+  // </div>`;
 
-// $('main').html(htmlString);
+  // $('main').html(htmlString);
 
-let index = store['questionNumber'];
-let htmlString = " ";
+  let index = store['questionNumber'];
+  let htmlString = " ";
 
-if(store.quizStarted === true )
-{
-  htmlString = generateMain((store['questions'])[index]);
-}
-else
-{
-  htmlString = generateSplashMain();
-}
+
+  if(store.quizStarted === false) {
+    htmlString = generateSplashMain();
+  }
+  else if(store.questionNumber >= store.questions.length) {
+    htmlString = generateFinalScreen();
+  }
+  else{
+    htmlString = generateMain((store['questions'])[index]);
+  }
 
   $('main').html(htmlString);
 }
