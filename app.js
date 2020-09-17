@@ -102,7 +102,7 @@ function handleSubmit(){
   
   $('main').on('submit', 'form', function (e) {
     e.preventDefault();
-    console.log("submitButton pressed!");
+    console.log('submitButton pressed!');
     if(!store.quizStarted){
       store.quizStarted = true;
       console.log('quiz should now be started!');
@@ -110,11 +110,12 @@ function handleSubmit(){
     else if(store.questionNumber >= store.questions.length){
       store.quizStarted = false;
       store.questionNumber = 0;
+      store.score = 0;
     }
     else {
       console.log($('input[name=answer]:checked'));
       let a = $('input[name=answer]:checked').val();
-      console.log("user's answer is");
+      console.log(`user's answer is`);
       console.log(a);
       let currentQ = store.questions[store.questionNumber];
       store.score += (currentQ.correctAnswer === a) ? 1 : 0;
@@ -188,7 +189,7 @@ function generateSplashMain(){
                         <form action="">
                           <input class='submit-button' type="submit" value="START" />
                         </form>
-                      </div>`
+                      </div>`;
 
   let splashScreen = questionPrompt + answerSection;
   return (splashScreen);
@@ -222,7 +223,7 @@ function render() {
   // $('main').html(htmlString);
 
   let index = store['questionNumber'];
-  let htmlString = " ";
+  let htmlString = ' ';
 
 
   if(store.quizStarted === false) {
