@@ -47,20 +47,24 @@ body {
 	padding: 0;
 }
 
+
+
 header h1{
   text-align: center;
   background-color: #fafafa;
   opacity: 0.5;
+  border-radius: 10px;
 }
 
 main {
   background-color: #fafafa;
   opacity: 0.5;
   font-size: 20px;
+  border-radius: 10px;
 }
 
 main div {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   margin-top: 20px;
   
 }
@@ -79,6 +83,28 @@ main div {
   margin-top: 20px;
 }
 
+#answer-section #final-score {
+  text-align: center;
+}
+
+#score-section {
+  border-top-style: solid;
+  border-bottom-style: solid;
+  border-color: #d9caa9;
+  border-width: 2px;
+  display: flex;
+  flex-direction: row;
+  justify-items: space-around;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+#score-section div {
+  text-align: center;
+  flex: 1;
+
+}
+
 .submit-button {
   width: 90px;
   margin: auto;
@@ -86,22 +112,33 @@ main div {
 }
 
 ul{
+  border-color: #d9caa9;
+  border-left-style: solid;
   list-style: inside;
   list-style: none;
-  width: 200px;
+  width: 75%;
   margin: auto;
 }
 
 li {
+  border-radius: 10px;
   margin-bottom: 10px;
   text-align: left;
 }
 
 li input {
   margin: 5px;
+  padding: 5px;
 }
 
 
-@media only screen and (max-width: 600px) {
+@media only screen and (min-width: 600px) {
 
+  header {
+    width: 500px;
+  }
+
+  main {
+    width: 500px;
+  }
 }

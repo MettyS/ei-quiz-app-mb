@@ -117,9 +117,12 @@ function handleSubmit(){
       let a = $('input[name=answer]:checked').val();
       console.log(`user's answer is`);
       console.log(a);
-      let currentQ = store.questions[store.questionNumber];
-      store.score += (currentQ.correctAnswer === a) ? 1 : 0;
-      store.questionNumber++;
+
+      if(a !== undefined) {
+        let currentQ = store.questions[store.questionNumber];
+        store.score += (currentQ.correctAnswer === a) ? 1 : 0;
+        store.questionNumber++;
+      }
     } 
 
     render();
@@ -149,11 +152,21 @@ alert("Your are a - " + radioValue);
 
 
 function generateQuestion(qString) {
-  return `<div id='question-prompt' class='wireframe-outline'>${qString}</div>`;
+  return `<div id='question-prompt'>${qString}</div>`;
+}
+
+function generateScore() {
+  let score = store.score;
+  let qNum = store.questionNumber;
+  let numQuestions = store.questions.length;
+  return `<div id='score-section'>
+            <div>${score} out of ${qNum} right</div>
+            <div>${(numQuestions-qNum)} questions remain</div>
+          </div>`;
 }
 
 function  generateAnswerItem(qString) {
-  return `<li class='wireframe-outline'><input type="radio" id="" name="answer" value="${qString}"><label for="">${qString}</label></li>`;
+  return `<li><input type="radio" id="" name="answer" value="${qString}"><label for="">${qString}</label></li>`;
 }
 
 function generateAnswers(qArray) {
@@ -162,9 +175,9 @@ function generateAnswers(qArray) {
   });
   let answersString = answers.join(' ');
 
-  let answersSection = `<div id='answer-section' class='wireframe-outline'>
+  let answersSection = `<div id='answer-section'>
                           <form action="">
-                            <ul class='wireframe-outline'>
+                            <ul>
                               ${answersString}
                             </ul>
                             <input class='submit-button' type="submit" value="SUBMIT" />
@@ -177,15 +190,16 @@ function generateAnswers(qArray) {
 function generateMain(qObject) {
   let questionPrompt = generateQuestion(qObject['question']); //this is giving a string
   let answerSection = generateAnswers(qObject['answers']); //this is giving an array
+  let scoreSection = generateScore();
 
-  let mainHtml = `${questionPrompt}${answerSection}`;
+  let mainHtml = `${questionPrompt}${answerSection}${scoreSection}`;
   return mainHtml;
 }
 
 
 function generateSplashMain(){
   let questionPrompt = generateQuestion('welcome to the quiz, please press START to begin.'); //this is giving a string
-  let answerSection = `<div id='answer-section' class='wireframe-outline'>
+  let answerSection = `<div id='answer-section''>
                         <form action="">
                           <input class='submit-button' type="submit" value="START" />
                         </form>
@@ -197,9 +211,9 @@ function generateSplashMain(){
 
 function generateFinalScreen(){
   let questionPrompt = generateQuestion('Thanks for taking the quiz! Your results are below, press "NEXT" to start over!');
-  let answerSection = `<div id='answer-section' class='wireframe-outline'>
+  let answerSection = `<div id='answer-section'>
                         <form action="">
-                          <p>You scored ${store.score} out of ${store.questions.length}</p>
+                          <div id='final-score'>You scored ${store.score} out of ${store.questions.length}</div>
                           <input class='submit-button' type="submit" value="NEXT" />
                         </form>
                       </div>`;
