@@ -117,18 +117,15 @@ function handleSubmit(){
     else {
       let a = $('input[name=answer]:checked').val();
       if(a === undefined && isColorToggled()) {
-        console.log('clearing highlights!');
         clearHighlights();
         render();
       }
       else if (a !== undefined && !isColorToggled()){
-        console.log('entered line 121');
         let temp = $('input[name=answer]:checked');
         setHighlights(temp);
       }
       else if(a !== undefined) {
         let curAnswer = getCurrentAnswer();
-        console.log(curAnswer);
 
         if(curAnswer === a){
           incrementScore();
@@ -137,8 +134,6 @@ function handleSubmit(){
         render();
       }
     } 
-
-    
   });
 }
 
@@ -152,7 +147,6 @@ function incrementQuestion() {
 function setHighlights(checkedObject) {
   let curAnswer = $(`input[name=answer][value="${getCurrentAnswer()}"]`);
   
-  console.log("setting highlights!!!!");
   curAnswer.parent().toggleClass('highlight');
   curAnswer.parent().toggleClass('right');
   if(checkedObject.val() !== curAnswer.val()){
