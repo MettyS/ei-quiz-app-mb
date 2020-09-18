@@ -111,7 +111,19 @@ li {
 
 li input {
   margin: 5px;
-  padding: 5px;
+  padding: 10px;
+}
+
+.highlight {
+  opacity: 1;
+}
+
+.wrong {
+  background-color: red;
+}
+
+.right {
+  background-color: lime;
 }
 
 

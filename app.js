@@ -105,27 +105,107 @@ function handleSubmit(){
   
   $('main').on('submit', 'form', function (e) {
     e.preventDefault();
-    if(!store.quizStarted){
-      store.quizStarted = true;
+    if(!isStarted()){
+      toggleStart();//store.quizStarted = true;
+      render();
     }
-    else if(store.questionNumber >= store.questions.length){
-      store.quizStarted = false;
-      store.questionNumber = 0;
-      store.score = 0;
+    else if(isEnd()){
+      toggleStart();//store.quizStarted = false;
+      resetForStart();
+      render();
     }
     else {
       let a = $('input[name=answer]:checked').val();
+      if(a === undefined && isColorToggled()) {
+        console.log('clearing highlights!');
+        clearHighlights();
+        render();
+      }
+      else if (a !== undefined && !isColorToggled()){
+        console.log('entered line 121');
+        let temp = $('input[name=answer]:checked');
+        setHighlights(temp);
+      }
+      else if(a !== undefined) {
+        let curAnswer = getCurrentAnswer();
+        console.log(curAnswer);
 
-      if(a !== undefined) {
-        let currentQ = store.questions[store.questionNumber];
-        store.score += (currentQ.correctAnswer === a) ? 1 : 0;
+
+        store.score += (curAnswer === a) ? 1 : 0;
         store.questionNumber++;
+        render();
       }
     } 
 
-    render();
+    
   });
 }
+
+function setHighlights(checkedObject) {
+  let curAnswer = $(`input[name=answer][value="${getCurrentAnswer()}"]`);
+  
+  console.log("setting highlights!!!!");
+  curAnswer.parent().toggleClass('highlight');
+  curAnswer.parent().toggleClass('right');
+  if(checkedObject.val() !== curAnswer.val()){
+    checkedObject.parent().toggleClass('highlight');
+    checkedObject.parent().toggleClass('wrong');
+  }
+}
+
+function clearHighlights() {
+  let q = store.questions[store.questionNumber];
+
+  for(let i = 0; i < q.answers.length ; i++) {
+    let answer = q.answers[i];
+    let answerObj = $(`input[name=answer][value="${answer}"]`);
+    if(answerObj.parent().hasClass('highlight')){
+      answerObj.parent().toggleClass('highlight');
+    }
+    if(answerObj.parent().hasClass('wrong')){
+      answerObj.parent().toggleClass('wrong');
+    }
+    if(answerObj.parent().hasClass('right')){
+      answerObj.parent().toggleClass('right');
+    }
+  }
+}
+
+function isColorToggled() {
+  let curAnswer = getCurrentAnswer();
+  let temp = $(`input[name=answer][value="${curAnswer}"]`);
+
+  for(let i = 0; i < store.questions[store.questionNumber].answers.length; i++){
+    if(temp.parent().hasClass('highlight')){
+      return true;
+    }
+  }
+  return false;
+}
+
+function getCurrentAnswer() {
+  return store.questions[store.questionNumber].correctAnswer;
+}
+
+function resetForStart() {
+  store.questionNumber = 0;
+  store.score = 0;
+}
+
+function isEnd() {
+  return store.questionNumber >= store.questions.length;
+}
+
+function isStarted() {
+  return store.quizStarted;
+}
+
+function toggleStart() {
+  store.quizStarted = !store.quizStarted;
+}
+
+
+
 
 
 function generateQuestion(qString) {
