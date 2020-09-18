@@ -130,15 +130,23 @@ function handleSubmit(){
         let curAnswer = getCurrentAnswer();
         console.log(curAnswer);
 
-
-        store.score += (curAnswer === a) ? 1 : 0;
-        store.questionNumber++;
+        if(curAnswer === a){
+          incrementScore();
+        }
+        incrementQuestion();
         render();
       }
     } 
 
     
   });
+}
+
+function incrementScore() {
+  store.score++;
+}
+function incrementQuestion() {
+  store.questionNumber++;
 }
 
 function setHighlights(checkedObject) {
