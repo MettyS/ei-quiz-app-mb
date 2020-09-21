@@ -61,6 +61,7 @@ main div {
 #answer-section form {
   display: flex;
   flex-direction: column;
+  text-align: center;
 }
 
 #answer-section div {
@@ -101,6 +102,11 @@ ul{
   list-style: none;
   width: 75%;
   margin: auto;
+}
+
+form p {
+  margin-bottom: 0px;
+  margin-top: 0px;
 }
 
 li {

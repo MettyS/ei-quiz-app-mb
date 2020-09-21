@@ -84,7 +84,15 @@ const store = {
       correctAnswer: '1974'
     }
   ],
+  answerRequests: [
+    'Please select an answer',
+    'Click an answer, then click Next',
+    'Make sure to choose an option above'
+  ],
+  playerAnswer: undefined,
+  answerRequestNum: 0,
   quizStarted: false,
+  needReminder: false,
   questionNumber: 0,
   score: 0
 };
@@ -101,40 +109,64 @@ const store = {
 //if its not correct answer
 //score stays the same
 
-function handleSubmit(){
-  
+function handleSubmit() {
+
   $('main').on('submit', 'form', function (e) {
     e.preventDefault();
-    if(!isStarted()){
+    if (!isStarted()) {
       toggleStart();//store.quizStarted = true;
       render();
     }
-    else if(isEnd()){
+    else if (isEnd()) {
       toggleStart();//store.quizStarted = false;
       resetForStart();
       render();
     }
     else {
       let a = $('input[name=answer]:checked').val();
-      if(a === undefined && isColorToggled()) {
+      if (a === undefined && isColorToggled()) {
         clearHighlights();
         render();
       }
-      else if (a !== undefined && !isColorToggled()){
-        let temp = $('input[name=answer]:checked');
+      else if (a === undefined) {
+        //toggle displaying a 'reminder' - added in generate answers
+        toggleReminderOn();
+        incrementAnswerRequestNum();
+        render();
+      }
+      else if (a !== undefined && !isColorToggled()) {
+        toggleReminderOff();
+        let temp = $('input[name=answer]:checked'); 
         setHighlights(temp);
       }
-      else if(a !== undefined) {
+      else if (a !== undefined) {
+        toggleReminderOff();
         let curAnswer = getCurrentAnswer();
 
-        if(curAnswer === a){
+        if (curAnswer === a) {
           incrementScore();
         }
         incrementQuestion();
         render();
       }
-    } 
+    }
   });
+}
+
+function setPlayerAnswer(value) {
+
+}
+
+function incrementAnswerRequestNum() {
+  store.answerRequestNum = store.answerRequestNum === (store.answerRequests.length-1) ? 0 : (store.answerRequestNum+1);
+}
+
+function toggleReminderOff() {
+  store.needReminder = false;
+}
+
+function toggleReminderOn() {
+  store.needReminder = true;
 }
 
 function incrementScore() {
@@ -146,10 +178,10 @@ function incrementQuestion() {
 
 function setHighlights(checkedObject) {
   let curAnswer = $(`input[name=answer][value="${getCurrentAnswer()}"]`);
-  
+
   curAnswer.parent().toggleClass('highlight');
   curAnswer.parent().toggleClass('right');
-  if(checkedObject.val() !== curAnswer.val()){
+  if (checkedObject.val() !== curAnswer.val()) {
     checkedObject.parent().toggleClass('highlight');
     checkedObject.parent().toggleClass('wrong');
   }
@@ -158,27 +190,28 @@ function setHighlights(checkedObject) {
 function clearHighlights() {
   let q = store.questions[store.questionNumber];
 
-  for(let i = 0; i < q.answers.length ; i++) {
+  for (let i = 0; i < q.answers.length; i++) {
     let answer = q.answers[i];
     let answerObj = $(`input[name=answer][value="${answer}"]`);
-    if(answerObj.parent().hasClass('highlight')){
+    if (answerObj.parent().hasClass('highlight')) {
       answerObj.parent().toggleClass('highlight');
     }
-    if(answerObj.parent().hasClass('wrong')){
+    if (answerObj.parent().hasClass('wrong')) {
       answerObj.parent().toggleClass('wrong');
     }
-    if(answerObj.parent().hasClass('right')){
+    if (answerObj.parent().hasClass('right')) {
       answerObj.parent().toggleClass('right');
     }
   }
 }
 
+
 function isColorToggled() {
   let curAnswer = getCurrentAnswer();
   let temp = $(`input[name=answer][value="${curAnswer}"]`);
 
-  for(let i = 0; i < store.questions[store.questionNumber].answers.length; i++){
-    if(temp.parent().hasClass('highlight')){
+  for (let i = 0; i < store.questions[store.questionNumber].answers.length; i++) {
+    if (temp.parent().hasClass('highlight')) {
       return true;
     }
   }
@@ -207,9 +240,6 @@ function toggleStart() {
 }
 
 
-
-
-
 function generateQuestion(qString) {
   return `<div id='question-prompt'>${qString}</div>`;
 }
@@ -220,11 +250,11 @@ function generateScore() {
   let numQuestions = store.questions.length;
   return `<div id='score-section'>
             <div>${score} out of ${qNum} right</div>
-            <div>${(numQuestions-qNum)} questions remain</div>
+            <div>${(numQuestions - qNum)} questions remain</div>
           </div>`;
 }
 
-function  generateAnswerItem(qString) {
+function generateAnswerItem(qString) {
   return `<li><input type="radio" id="" name="answer" value="${qString}"><label for="">${qString}</label></li>`;
 }
 
@@ -233,16 +263,25 @@ function generateAnswers(qArray) {
     return generateAnswerItem(question); //returns the generated html for the current question in array
   });
   let answersString = answers.join(' ');
+  let reminder = ``;
+  if (store.needReminder) {
+    let randExclamation = '';
+    for (let i = 0; i < Math.random() * 5; i++) {
+      randExclamation += '!'
+    }
+    let answerReminder = store.answerRequests[store.answerRequestNum];
+    reminder = `<p>${answerReminder}${randExclamation}</p>`;
+  }
 
   let answersSection = `<div id='answer-section'>
                           <form action="">
                             <ul>
                               ${answersString}
                             </ul>
-                            <input class='submit-button' type="submit" value="SUBMIT" />
+                            ${reminder}
+                            <input class='submit-button' type="submit" value="NEXT" />
                           </form>
                         </div>`;
-
   return answersSection; //return an array of html strings
 }
 
@@ -257,7 +296,7 @@ function generateMain(qObject) {
 
 //inside splash screen
 //display info " this is a quiz about ...etc etc"
-function generateSplashMain(){
+function generateSplashMain() {
   let questionPrompt = generateQuestion('welcome to the quiz, please press START to begin.'); //this is giving a string
   let answerSection = `<div id='answer-section''>
                         <form action="">
@@ -269,7 +308,7 @@ function generateSplashMain(){
   return (splashScreen);
 }
 
-function generateFinalScreen(){
+function generateFinalScreen() {
   let questionPrompt = generateQuestion('Thanks for taking the quiz! Your results are below, press "NEXT" to start over!');
   let answerSection = `<div id='answer-section'>
                         <form action="">
@@ -277,26 +316,27 @@ function generateFinalScreen(){
                           <input class='submit-button' type="submit" value="NEXT" />
                         </form>
                       </div>`;
-  return questionPrompt+answerSection;
+  return questionPrompt + answerSection;
 }
+
 
 
 function render() {
 
-  //   //check if quiz started is true
-  //   //if not render a splash
+  //   check if quiz started is true
+  //   if not render a splash
 
   let index = store['questionNumber'];
   let htmlString = ' ';
 
 
-  if(store.quizStarted === false) {
+  if (store.quizStarted === false) {
     htmlString = generateSplashMain();
   }
-  else if(store.questionNumber >= store.questions.length) {
+  else if (store.questionNumber >= store.questions.length) {
     htmlString = generateFinalScreen();
   }
-  else{
+  else {
     htmlString = generateMain((store['questions'])[index]);
   }
 
