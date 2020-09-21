@@ -37,13 +37,13 @@ body {
 header h1{
   text-align: center;
   background-color: #fafafa;
-  opacity: 0.5;
+  opacity: 0.75;
   border-radius: 10px;
 }
 
 main {
   background-color: #fafafa;
-  opacity: 0.5;
+  opacity: 0.75;
   font-size: 20px;
   border-radius: 10px;
 }

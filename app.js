@@ -255,7 +255,7 @@ function generateScore() {
 }
 
 function generateAnswerItem(qString) {
-  return `<li><input type="radio" id="" name="answer" value="${qString}"><label for="">${qString}</label></li>`;
+  return `<li><input type="radio" id="${qString}" name="answer" value="${qString}"><label for="${qString}">${qString}</label></li>`;
 }
 
 function generateAnswers(qArray) {
